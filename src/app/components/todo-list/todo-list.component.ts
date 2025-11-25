@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { TodoService, PersonService } from '../../services';
 import { Todo, Person, Priority, Label } from '../../models';
+import {TodoModalComponent} from "../todo-modal/todo-modal.component";
+import {MatDialog} from "@angular/material/dialog";
 
 @Component({
   selector: 'app-todo-list',
@@ -78,7 +80,8 @@ export class TodoListComponent implements OnInit {
 
   constructor(
     private todoService: TodoService,
-    private personService: PersonService
+    private personService: PersonService,
+    private dialog: MatDialog
   ) { }
 
   ngOnInit(): void {
@@ -98,6 +101,47 @@ export class TodoListComponent implements OnInit {
       this.todos = todos;
       this.applyFilters();
     });
+  }
+
+  onAddTodo(): void {
+    const dialogRef = this.dialog.open(TodoModalComponent, {
+      width: '600px',
+      data: { persons: this.persons }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.todoService.createTodo(result).subscribe(() => {
+          this.loadTodos();
+        });
+      }
+    });
+  }
+
+  onEditTodo(event: any): void {
+    const dialogRef = this.dialog.open(TodoModalComponent, {
+      width: '600px',
+      data: {
+        todo: event.data,
+        persons: this.persons
+      }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.todoService.updateTodo(event.data.id, result).subscribe(() => {
+          this.loadTodos();
+        });
+      }
+    });
+  }
+
+  onDeleteTodo(event: any): void {
+    if (confirm('Êtes-vous sûr de vouloir supprimer cette tâche ?')) {
+      this.todoService.deleteTodo(event.data.id).subscribe(() => {
+        this.loadTodos();
+      });
+    }
   }
 
   getPersonName(personId: number): string {
