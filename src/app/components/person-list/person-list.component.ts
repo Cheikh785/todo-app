@@ -60,6 +60,47 @@ export class PersonListComponent implements OnInit {
     });
   }
 
+  onAddPerson(): void {
+    const dialogRef = this.dialog.open(PersonModalComponent, {
+      width: '500px',
+      data: { allPersons: this.persons }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.personService.createPerson(result).subscribe(() => {
+          this.loadPersons();
+        });
+      }
+    });
+  }
+
+  onEditPerson(event: any): void {
+    const dialogRef = this.dialog.open(PersonModalComponent, {
+      width: '500px',
+      data: {
+        person: event.data,
+        allPersons: this.persons
+      }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.personService.updatePerson(event.data.id, result).subscribe(() => {
+          this.loadPersons();
+        });
+      }
+    });
+  }
+
+  onDeletePerson(event: any): void {
+    if (confirm('Êtes-vous sûr de vouloir supprimer cette personne ?')) {
+      this.personService.deletePerson(event.data.id).subscribe(() => {
+        this.loadPersons();
+      });
+    }
+  }
+
   applyFilters(): void {
     this.filteredPersons = this.persons.filter(person => {
       const matchesName = !this.nameFilter ||
@@ -79,18 +120,5 @@ export class PersonListComponent implements OnInit {
     this.nameFilter = '';
     this.emailFilter = '';
     this.applyFilters();
-  }
-
-  onAddPerson(): void {
-    const dialogRef = this.dialog.open(PersonModalComponent, {
-      width: '600px',
-      data: { mode: 'add' }
-    });
-
-    dialogRef.afterClosed().subscribe(result => {
-      if (result) {
-        this.loadPersons();
-      }
-    });
   }
 }
