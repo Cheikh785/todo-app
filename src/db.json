@@ -1,0 +1,54 @@
+{
+  "persons": [
+    {
+      "id": 1,
+      "name": "Jean Dupont",
+      "email": "jean.dupont@example.com",
+      "phone": "+221 77 123 45 67"
+    },
+    {
+      "id": 2,
+      "name": "Marie Martin",
+      "email": "marie.martin@example.com",
+      "phone": "+221 77 234 56 78"
+    },
+    {
+      "id": 3,
+      "name": "Pierre Durand",
+      "email": "pierre.durand@example.com",
+      "phone": "+221 77 345 67 89"
+    }
+  ],
+  "todos": [
+    {
+      "id": 1,
+      "title": "Créer la page d'accueil",
+      "personId": 1,
+      "startDate": "2024-01-15",
+      "endDate": null,
+      "priority": "MOYEN",
+      "labels": ["HTML", "CSS"],
+      "description": "Développer la page d'accueil responsive"
+    },
+    {
+      "id": 2,
+      "title": "Intégrer l'API",
+      "personId": 2,
+      "startDate": "2024-01-20",
+      "endDate": null,
+      "priority": "DIFFICILE",
+      "labels": ["NODE_JS"],
+      "description": "Connecter le frontend à l'API REST"
+    },
+    {
+      "id": 3,
+      "title": "Corriger les bugs CSS",
+      "personId": 3,
+      "startDate": "2024-01-10",
+      "endDate": "2024-01-12",
+      "priority": "FACILE",
+      "labels": ["CSS"],
+      "description": "Résoudre les problèmes d'affichage"
+    }
+  ]
+}
