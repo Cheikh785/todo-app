@@ -13,12 +13,14 @@ import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {Ng2SmartTableModule} from "ng2-smart-table";
 import { PersonModalComponent } from './components/person-modal/person-modal.component';
 import {MaterialModule} from "./shared/material.module";
+import { TodoListComponent } from './components/todo-list/todo-list.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     PersonListComponent,
-    PersonModalComponent
+    PersonModalComponent,
+    TodoListComponent
   ],
   imports: [
     BrowserModule,
