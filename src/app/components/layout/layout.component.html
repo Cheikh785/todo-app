@@ -1,0 +1,57 @@
+<div class="app-container h-screen flex flex-col">
+  <mat-toolbar color="primary" class="shadow-md">
+    <button
+      mat-icon-button
+      (click)="toggleSidenav()"
+      aria-label="Toggle sidenav">
+      <mat-icon>menu</mat-icon>
+    </button>
+    <span class="text-xl font-bold ml-2">Todo App</span>
+    <span class="spacer flex-1"></span>
+    <button mat-icon-button aria-label="Notifications">
+      <mat-icon>notifications</mat-icon>
+    </button>
+    <button mat-icon-button aria-label="Profil">
+      <mat-icon>account_circle</mat-icon>
+    </button>
+  </mat-toolbar>
+
+  <mat-sidenav-container class="flex-1">
+    <mat-sidenav
+      #sidenav
+      [opened]="sidenavOpened"
+      [mode]="sidenavMode"
+      class="w-64 bg-gray-50">
+
+      <div class="p-4">
+        <h2 class="text-lg font-semibold text-gray-700 mb-4">Navigation</h2>
+
+        <mat-nav-list>
+          <a
+            mat-list-item
+            *ngFor="let item of navigationItems"
+            [routerLink]="item.route"
+            routerLinkActive="bg-blue-100"
+            (click)="closeSidenavIfMobile()"
+            class="mb-2 rounded-lg hover:bg-gray-200 transition-colors">
+            <mat-icon matListItemIcon class="text-gray-600">{{ item.icon }}</mat-icon>
+            <span matListItemTitle class="font-medium">{{ item.label }}</span>
+          </a>
+        </mat-nav-list>
+      </div>
+
+      <div class="absolute bottom-0 w-full p-4 border-t border-gray-200">
+        <div class="text-xs text-gray-500 text-center">
+          <p>Version 1.0.0</p>
+          <p class="mt-1">© 2025 Todo App</p>
+        </div>
+      </div>
+    </mat-sidenav>
+
+    <mat-sidenav-content class="bg-gray-100">
+      <div class="p-4">
+        <router-outlet></router-outlet>
+      </div>
+    </mat-sidenav-content>
+  </mat-sidenav-container>
+</div>
