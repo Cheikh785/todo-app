@@ -50,7 +50,9 @@
     <div class="overflow-x-auto">
       <ng2-smart-table
         [settings]="settings"
-        [source]="filteredPersons">
+        [source]="filteredPersons"
+        (edit)="onEditPerson($event)"
+        (delete)="onDeletePerson($event)">
       </ng2-smart-table>
     </div>
   </div>
