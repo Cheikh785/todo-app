@@ -11,11 +11,14 @@ import {MatIconModule} from "@angular/material/icon";
 import {MatInputModule} from "@angular/material/input";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {Ng2SmartTableModule} from "ng2-smart-table";
+import { PersonModalComponent } from './components/person-modal/person-modal.component';
+import {MaterialModule} from "./shared/material.module";
 
 @NgModule({
   declarations: [
     AppComponent,
-    PersonListComponent
+    PersonListComponent,
+    PersonModalComponent
   ],
   imports: [
     BrowserModule,
@@ -27,7 +30,8 @@ import {Ng2SmartTableModule} from "ng2-smart-table";
     MatInputModule,
     FormsModule,
     Ng2SmartTableModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    MaterialModule
   ],
   providers: [],
   bootstrap: [AppComponent]

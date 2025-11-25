@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { PersonService } from '../../services';
 import { Person } from '../../models';
+import {PersonModalComponent} from "../person-modal/person-modal.component";
+import {MatDialog} from "@angular/material/dialog";
 
 @Component({
   selector: 'app-person-list',
@@ -45,7 +47,7 @@ export class PersonListComponent implements OnInit {
   nameFilter: string = '';
   emailFilter: string = '';
 
-  constructor(private personService: PersonService) { }
+  constructor(private personService: PersonService, private dialog: MatDialog) { }
 
   ngOnInit(): void {
     this.loadPersons();
@@ -77,5 +79,18 @@ export class PersonListComponent implements OnInit {
     this.nameFilter = '';
     this.emailFilter = '';
     this.applyFilters();
+  }
+
+  onAddPerson(): void {
+    const dialogRef = this.dialog.open(PersonModalComponent, {
+      width: '600px',
+      data: { mode: 'add' }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.loadPersons();
+      }
+    });
   }
 }
