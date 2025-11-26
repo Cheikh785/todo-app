@@ -1,0 +1,95 @@
+.confirm-dialog {
+  min-width: 400px;
+  max-width: 600px;
+}
+
+.title {
+  margin: 0 0 8px 0;
+  font-size: 20px;
+  font-weight: 600;
+}
+
+.message {
+  margin: 0 0 16px 0;
+  color: rgba(0,0,0,0.8);
+}
+
+.actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+}
+
+.confirm-root {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 20px 20px 16px 20px;
+  box-sizing: border-box;
+  background: white;
+}
+
+.header {
+  display: flex;
+  gap: 16px;
+  align-items: center;
+}
+
+.icon-wrap {
+  width: 60px;
+  height: 56px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.08);
+}
+
+.icon-wrap mat-icon {
+  font-size: 26px;
+  color: white;
+}
+
+.icon-wrap.warn {
+  background: linear-gradient(135deg, #ff7043, #f44336);
+}
+
+.icon-wrap.primary {
+  background: linear-gradient(135deg, #42a5f5, #1976d2);
+}
+
+.icon-wrap.accent {
+  background: linear-gradient(135deg, #ab47bc, #7b1fa2);
+}
+
+.title-area .title {
+  margin: 0;
+  font-size: 18px;
+  font-weight: 700;
+}
+
+.title-area .subtitle {
+  margin: 0;
+  color: rgba(0,0,0,0.7);
+}
+
+mat-dialog-content .message {
+  margin: 8px 0 0 0;
+  font-size: 15px;
+  color: rgba(0,0,0,0.85);
+}
+
+mat-dialog-actions.actions {
+  padding: 8px 0 0 0;
+}
+
+@media (max-width: 420px) {
+  .confirm-root {
+    padding: 14px;
+  }
+
+  .icon-wrap {
+    width: 48px;
+    height: 48px;
+  }
+}

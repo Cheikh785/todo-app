@@ -5,6 +5,7 @@ import {PersonModalComponent} from "../person-modal/person-modal.component";
 import {MatDialog} from "@angular/material/dialog";
 import { TranslocoService } from '@ngneat/transloco';
 import { ExportService } from '../../services';
+import { ConfirmDialogComponent } from '../confirm-dialog/confirm-dialog.component';
 
 @Component({
   selector: 'app-person-list',
@@ -31,19 +32,23 @@ export class PersonListComponent implements OnInit {
     },
     columns: {
       name: {
-        title: 'Nom'
+        title: this.translocoService.translate('person.name'),
+        filter: false
       },
       email: {
-        title: 'Email'
+        title: this.translocoService.translate('person.email'),
+        filter: false
       },
       phone: {
-        title: 'Téléphone'
+        title: this.translocoService.translate('person.phone'),
+        filter: false
       }
     },
     pager: {
       display: true,
       perPage: 10
-    }
+    },
+    noDataMessage: this.translocoService.translate('common.noData')
   };
 
   nameFilter: string = '';
@@ -82,19 +87,23 @@ export class PersonListComponent implements OnInit {
       },
       columns: {
         name: {
-          title: this.translocoService.translate('person.name')
+          title: this.translocoService.translate('person.name'),
+          filter: false
         },
         email: {
-          title: this.translocoService.translate('person.email')
+          title: this.translocoService.translate('person.email'),
+          filter: false
         },
         phone: {
-          title: this.translocoService.translate('person.phone')
+          title: this.translocoService.translate('person.phone'),
+          filter: false
         }
       },
       pager: {
         display: true,
-        perPage: 10
-      }
+        perPage: 5
+      },
+      noDataMessage: this.translocoService.translate('common.noData')
     };
   }
 
@@ -139,12 +148,25 @@ export class PersonListComponent implements OnInit {
   }
 
   onDeletePerson(event: any): void {
-    const confirmMessage = this.translocoService.translate('person.deleteConfirm');
-    if (confirm(confirmMessage)) {
-      this.personService.deletePerson(event.data.id).subscribe(() => {
-        this.loadPersons();
-      });
-    }
+    const message = this.translocoService.translate('person.deleteConfirm');
+    const dialogRef = this.dialog.open(ConfirmDialogComponent, {
+      width: '460px',
+      data: {
+        title: this.translocoService.translate('common.confirm'),
+        message,
+        confirmText: this.translocoService.translate('common.yes'),
+        cancelText: this.translocoService.translate('common.no'),
+        color: 'warn'
+      }
+    });
+
+    dialogRef.afterClosed().subscribe((confirmed: boolean) => {
+      if (confirmed) {
+        this.personService.deletePerson(event.data.id).subscribe(() => {
+          this.loadPersons();
+        });
+      }
+    });
   }
 
   applyFilters(): void {

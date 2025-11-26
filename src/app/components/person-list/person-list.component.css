@@ -1,0 +1,225 @@
+.modern-input {
+  width: 100%;
+  border: 2px solid #e5e7eb;
+  padding: 12px 16px 12px 40px;
+  border-radius: 10px;
+  font-size: 14px;
+  color: #1f2937;
+  background-color: #ffffff;
+  transition: all 0.2s ease;
+  outline: none;
+}
+
+.modern-input:hover {
+  border-color: #cbd5e1;
+}
+
+.modern-input:focus {
+  border-color: #4f46e5;
+  box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.1);
+}
+
+.modern-input::placeholder {
+  color: #9ca3af;
+  font-weight: 400;
+}
+
+.reset-button {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 10px 20px;
+  border: 2px solid #e5e7eb;
+  border-radius: 10px;
+  background-color: #ffffff;
+  color: #6b7280;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  white-space: nowrap;
+}
+
+.reset-button:hover {
+  background-color: #fef2f2;
+  border-color: #fca5a5;
+  color: #dc2626;
+}
+
+.reset-button mat-icon {
+  font-size: 18px;
+  width: 18px;
+  height: 18px;
+}
+
+::ng-deep ng2-smart-table table thead tr:nth-child(2) {
+  display: none !important;
+}
+
+::ng-deep ng2-smart-table table tbody tr:first-child {
+  display: none !important;
+}
+
+::ng-deep ng2-smart-table table thead {
+  background: linear-gradient(to right, #f8fafc, #f1f5f9);
+}
+
+::ng-deep ng2-smart-table table thead tr th {
+  padding: 16px 20px !important;
+  font-size: 13px !important;
+  font-weight: 600 !important;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: #475569 !important;
+  border-bottom: 2px solid #e2e8f0 !important;
+  background: transparent !important;
+}
+
+::ng-deep ng2-smart-table table tbody tr {
+  transition: all 0.2s ease;
+  border-bottom: 1px solid #f1f5f9;
+}
+
+::ng-deep ng2-smart-table table tbody tr:hover {
+  background-color: #f8fafc !important;
+  transform: scale(1.001);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+}
+
+::ng-deep ng2-smart-table table tbody tr td {
+  padding: 16px 20px !important;
+  color: #1e293b;
+  font-size: 14px;
+  border: none !important;
+}
+
+::ng-deep .ng2-smart-actions {
+  display: flex !important;
+  gap: 8px !important;
+  justify-content: center !important;
+  align-items: center !important;
+}
+
+::ng-deep .ng2-smart-actions a {
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  width: 36px !important;
+  height: 36px !important;
+  border-radius: 8px !important;
+  transition: all 0.2s ease !important;
+  text-decoration: none !important;
+}
+
+::ng-deep .ng2-smart-actions a.ng2-smart-action-edit-edit {
+  color: #4f46e5 !important;
+  background-color: #eef2ff !important;
+}
+
+::ng-deep .ng2-smart-actions a.ng2-smart-action-edit-edit:hover {
+  background-color: #e0e7ff !important;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(79, 70, 229, 0.2);
+}
+
+::ng-deep .ng2-smart-actions a.ng2-smart-action-delete-delete {
+  color: #dc2626 !important;
+  background-color: #fef2f2 !important;
+}
+
+::ng-deep .ng2-smart-actions a.ng2-smart-action-delete-delete:hover {
+  background-color: #fee2e2 !important;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(220, 38, 38, 0.2);
+}
+
+::ng-deep .ng2-smart-actions a i {
+  font-size: 18px !important;
+  line-height: 1 !important;
+}
+
+::ng-deep .ng2-smart-pagination {
+  display: flex !important;
+  justify-content: flex-end !important;
+  margin-top: 20px !important;
+  padding: 16px 0 !important;
+  border-top: 1px solid #f1f5f9 !important;
+}
+
+::ng-deep .ng2-smart-pagination nav {
+  display: flex !important;
+}
+
+::ng-deep .ng2-smart-pagination-nav .page-link {
+  border-radius: 8px !important;
+  margin: 0 4px !important;
+  border: 1px solid #e5e7eb !important;
+  color: #6b7280 !important;
+  font-weight: 500 !important;
+  padding: 8px 12px !important;
+  transition: all 0.2s ease !important;
+  font-size: 14px !important;
+}
+
+::ng-deep .ng2-smart-pagination-nav .page-link:hover {
+  background-color: #eef2ff !important;
+  border-color: #4f46e5 !important;
+  color: #4f46e5 !important;
+  transform: translateY(-1px);
+}
+
+::ng-deep .ng2-smart-pagination-nav .active .page-link {
+  background-color: #4f46e5 !important;
+  border-color: #4f46e5 !important;
+  color: white !important;
+  box-shadow: 0 2px 8px rgba(79, 70, 229, 0.3);
+}
+
+::ng-deep ng2-smart-table table tbody tr.ng2-smart-row:only-child td {
+  text-align: center;
+  padding: 40px !important;
+  color: #9ca3af;
+  font-size: 14px;
+}
+
+.fade-in {
+  animation: fadeInUp 0.5s ease;
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (max-width: 768px) {
+  .modern-input {
+    padding: 10px 14px;
+    font-size: 13px;
+  }
+
+  .reset-button {
+    padding: 10px 16px;
+    font-size: 13px;
+  }
+
+  ::ng-deep ng2-smart-table table thead tr th,
+  ::ng-deep ng2-smart-table table tbody tr td {
+    padding: 12px 8px !important;
+    font-size: 12px !important;
+  }
+
+  ::ng-deep .ng2-smart-actions a {
+    width: 32px !important;
+    height: 32px !important;
+  }
+
+  ::ng-deep .ng2-smart-pagination {
+    justify-content: center !important;
+  }
+}

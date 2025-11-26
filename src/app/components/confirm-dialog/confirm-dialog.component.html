@@ -1,0 +1,21 @@
+<div class="confirm-root">
+  <div class="header">
+    <div class="icon-wrap" [ngClass]="{ 'warn': data.color === 'warn', 'accent': data.color === 'accent', 'primary': data.color === 'primary' }">
+      <mat-icon aria-hidden="false" aria-label="confirmation icon">warning</mat-icon>
+    </div>
+    <div class="title-area">
+      <h2 class="title" *ngIf="data.title">{{ data.title }}</h2>
+      <p class="subtitle" *ngIf="!data.title">{{ data.message | transloco }}</p>
+    </div>
+  </div>
+
+  <mat-dialog-content>
+    <p class="message" *ngIf="data.title">{{ data.message }}</p>
+  </mat-dialog-content>
+
+  <mat-dialog-actions align="end" class="actions">
+    <button mat-stroked-button color="primary" (click)="onCancel()">{{ data.cancelText }}</button>
+    <button mat-raised-button [color]="data.color" (click)="onConfirm()">{{ data.confirmText }}</button>
+  </mat-dialog-actions>
+</div>
+
