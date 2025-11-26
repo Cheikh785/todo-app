@@ -87,5 +87,12 @@
     "select": "Language",
     "french": "Français",
     "english": "English"
+  },
+  "export": {
+    "excel": "Export Excel",
+    "pdf": "Export PDF",
+    "exportDate": "Export date",
+    "personsList": "Persons List",
+    "todosList": "Tasks List"
   }
 }

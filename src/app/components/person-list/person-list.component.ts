@@ -4,6 +4,7 @@ import { Person } from '../../models';
 import {PersonModalComponent} from "../person-modal/person-modal.component";
 import {MatDialog} from "@angular/material/dialog";
 import { TranslocoService } from '@ngneat/transloco';
+import { ExportService } from '../../services';
 
 @Component({
   selector: 'app-person-list',
@@ -48,7 +49,12 @@ export class PersonListComponent implements OnInit {
   nameFilter: string = '';
   emailFilter: string = '';
 
-  constructor(private personService: PersonService, private dialog: MatDialog, private translocoService: TranslocoService) { }
+  constructor(
+    private personService: PersonService,
+    private dialog: MatDialog,
+    private translocoService: TranslocoService,
+    private exportService: ExportService
+  ) { }
 
   ngOnInit(): void {
     this.loadPersons();
@@ -160,5 +166,13 @@ export class PersonListComponent implements OnInit {
     this.nameFilter = '';
     this.emailFilter = '';
     this.applyFilters();
+  }
+
+  exportToExcel(): void {
+    this.exportService.exportPersonsToExcel(this.filteredPersons, 'personnes');
+  }
+
+  exportToPDF(): void {
+    this.exportService.exportPersonsToPDF(this.filteredPersons, 'personnes');
   }
 }

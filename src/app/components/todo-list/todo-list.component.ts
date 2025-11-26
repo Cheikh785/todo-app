@@ -4,6 +4,7 @@ import { Todo, Person, Priority, Label } from '../../models';
 import {TodoModalComponent} from "../todo-modal/todo-modal.component";
 import {MatDialog} from "@angular/material/dialog";
 import {TranslocoService} from "@ngneat/transloco";
+import { ExportService } from '../../services';
 
 @Component({
   selector: 'app-todo-list',
@@ -83,7 +84,8 @@ export class TodoListComponent implements OnInit {
     private todoService: TodoService,
     private personService: PersonService,
     private dialog: MatDialog,
-    private translocoService: TranslocoService
+    private translocoService: TranslocoService,
+    private exportService: ExportService
   ) { }
 
   ngOnInit(): void {
@@ -257,5 +259,13 @@ export class TodoListComponent implements OnInit {
     this.selectedPriority = '';
     this.selectedLabels = [];
     this.applyFilters();
+  }
+
+  exportToExcel(): void {
+    this.exportService.exportTodosToExcel(this.filteredTodos, this.personsMap, 'taches');
+  }
+
+  exportToPDF(): void {
+    this.exportService.exportTodosToPDF(this.filteredTodos, this.personsMap, 'taches');
   }
 }
