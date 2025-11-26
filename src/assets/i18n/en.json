@@ -63,7 +63,9 @@
     "filters": "Filters",
     "titlePlaceholder": "Enter task title",
     "personPlaceholder": "Search for a person",
-    "descriptionPlaceholder": "Describe the task in detail"
+    "descriptionPlaceholder": "Describe the task in detail",
+    "count": "tasks",
+    "persons": "persons"
   },
   "priority": {
     "FACILE": "Easy",
