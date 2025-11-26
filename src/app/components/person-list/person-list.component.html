@@ -1,78 +1,94 @@
-<div class="container mx-auto p-6">
-  <div class="bg-white rounded-lg shadow-lg p-6">
-    <div class="flex justify-between items-center mb-6">
-      <h1 class="text-3xl font-bold text-gray-800">{{ 'person.title' | transloco }}</h1>
-      <div class="flex gap-2">
-        <button
-          mat-raised-button
-          color="accent"
-          (click)="exportToExcel()"
-          class="flex items-center gap-2">
-          <mat-icon>table_chart</mat-icon>
-          {{ 'export.excel' | transloco }}
-        </button>
-        <button
-          mat-raised-button
-          color="accent"
-          (click)="exportToPDF()"
-          class="flex items-center gap-2">
-          <mat-icon>picture_as_pdf</mat-icon>
-          {{ 'export.pdf' | transloco }}
-        </button>
+<div class="container mx-auto p-6 fade-in">
+  <div class="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden">
+    <div class="bg-gradient-to-r from-indigo-600 to-blue-600 px-8 py-6">
+      <div class="flex justify-between items-center">
+        <div>
+          <h1 class="text-3xl font-bold text-white mb-1">
+            {{ 'person.title' | transloco }}
+          </h1>
+          <p class="text-indigo-100 text-sm">
+            {{ filteredPersons.length > 0 ? filteredPersons.length - 1 : 0 }} {{ 'todo.persons' | transloco }}
+          </p>
+        </div>
 
-        <button
-          mat-raised-button
-          color="primary"
-          (click)="onAddPerson()"
-          class="flex items-center gap-2">
-          <mat-icon>add</mat-icon>
-          {{ 'person.addPerson' | transloco }}
-        </button>
-      </div>
-    </div>
-
-    <div class="bg-gray-50 rounded-lg p-4 mb-6">
-      <h3 class="text-lg font-semibold mb-4 text-gray-700">{{ 'person.filters' | transloco }}</h3>
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-        <mat-form-field class="w-full">
-          <mat-label>{{ 'person.name' | transloco }}</mat-label>
-          <input
-            matInput
-            [(ngModel)]="nameFilter"
-            (ngModelChange)="onFilterChange()"
-            [placeholder]="'person.searchByName' | transloco">
-          <mat-icon matSuffix>search</mat-icon>
-        </mat-form-field>
-
-        <mat-form-field class="w-full">
-          <mat-label>{{ 'person.email' | transloco }}</mat-label>
-          <input
-            matInput
-            [(ngModel)]="emailFilter"
-            (ngModelChange)="onFilterChange()"
-            [placeholder]="'person.searchByEmail' | transloco">
-          <mat-icon matSuffix>search</mat-icon>
-        </mat-form-field>
-
-        <div class="flex items-center">
+        <div class="flex gap-3">
           <button
             mat-raised-button
-            (click)="clearFilters()"
-            class="w-full">
-            <mat-icon>clear</mat-icon>
-            {{ 'common.reset' | transloco }}
+            color="accent"
+            (click)="exportToExcel()"
+            class="flex items-center gap-2">
+            <mat-icon>table_chart</mat-icon>
+            {{ 'export.excel' | transloco }}
+          </button>
+          <button
+            mat-raised-button
+            color="accent"
+            (click)="exportToPDF()"
+            class="flex items-center gap-2">
+            <mat-icon>picture_as_pdf</mat-icon>
+            {{ 'export.pdf' | transloco }}
+          </button>
+          <button
+            mat-raised-button
+            color="primary"
+            (click)="onAddPerson()"
+            class="flex items-center gap-2">
+            <mat-icon>add</mat-icon>
+            {{ 'person.addPerson' | transloco }}
           </button>
         </div>
       </div>
     </div>
 
-    <div class="overflow-x-auto">
-      <ng2-smart-table
-        [settings]="settings"
-        [source]="filteredPersons"
-        (edit)="onEditPerson($event)"
-        (delete)="onDeletePerson($event)">
-      </ng2-smart-table>
+    <div class="px-8 py-6 border-b border-gray-100">
+      <div class="flex items-center gap-4 flex-wrap">
+        <div class="flex-1 min-w-[250px]">
+          <div class="relative">
+            <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+              <mat-icon class="text-gray-400 text-xl">person</mat-icon>
+            </div>
+            <input
+              type="text"
+              [(ngModel)]="nameFilter"
+              (ngModelChange)="onFilterChange()"
+              [placeholder]="'person.searchByName' | transloco"
+              class="modern-input pl-10">
+          </div>
+        </div>
+        <div class="flex-1 min-w-[250px]">
+          <div class="relative">
+            <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+              <mat-icon class="text-gray-400 text-xl">email</mat-icon>
+            </div>
+            <input
+              type="text"
+              [(ngModel)]="emailFilter"
+              (ngModelChange)="onFilterChange()"
+              [placeholder]="'person.searchByEmail' | transloco"
+              class="modern-input pl-10">
+          </div>
+        </div>
+
+        <button
+          *ngIf="nameFilter || emailFilter"
+          (click)="clearFilters()"
+          class="reset-button">
+          <mat-icon class="text-lg -mt-2">close</mat-icon>
+          <span>{{ 'common.reset' | transloco }}</span>
+        </button>
+      </div>
     </div>
+
+    <div class="p-8">
+      <div class="overflow-hidden rounded-lg border border-gray-200">
+        <ng2-smart-table
+          [settings]="settings"
+          [source]="filteredPersons"
+          (edit)="onEditPerson($event)"
+          (delete)="onDeletePerson($event)">
+        </ng2-smart-table>
+      </div>
+    </div>
+
   </div>
 </div>

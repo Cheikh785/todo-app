@@ -1,8 +1,33 @@
 .modal-container {
   min-width: 400px;
   max-width: 600px;
+  padding: 8px;
 }
 
 mat-form-field {
   width: 100%;
+}
+
+:host {
+  display: block;
+  animation: slideIn 1s ease;
+}
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.mat-mdc-form-field .mat-icon {
+  color: #757575;
+}
+
+.mat-mdc-form-field:focus-within .mat-icon {
+  color: #1976d2;
 }

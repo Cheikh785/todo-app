@@ -5,6 +5,7 @@ import {TodoModalComponent} from "../todo-modal/todo-modal.component";
 import {MatDialog} from "@angular/material/dialog";
 import {TranslocoService} from "@ngneat/transloco";
 import { ExportService } from '../../services';
+import {ConfirmDialogComponent} from "../confirm-dialog/confirm-dialog.component";
 
 @Component({
   selector: 'app-todo-list',
@@ -207,12 +208,25 @@ export class TodoListComponent implements OnInit {
   }
 
   onDeleteTodo(event: any): void {
-    const confirmMessage = this.translocoService.translate('todo.deleteConfirm');
-    if (confirm(confirmMessage)) {
-      this.todoService.deleteTodo(event.data.id).subscribe(() => {
-        this.loadTodos();
-      });
-    }
+    const message = this.translocoService.translate('todo.deleteConfirm');
+    const dialogRef = this.dialog.open(ConfirmDialogComponent, {
+      width: '440px',
+      data: {
+        title: this.translocoService.translate('common.confirm'),
+        message,
+        confirmText: this.translocoService.translate('common.yes'),
+        cancelText: this.translocoService.translate('common.no'),
+        color: 'warn'
+      }
+    });
+
+    dialogRef.afterClosed().subscribe((confirmed: boolean) => {
+      if (confirmed) {
+        this.todoService.deleteTodo(event.data.id).subscribe(() => {
+          this.loadTodos();
+        });
+      }
+    });
   }
 
   getPersonName(personId: number): string {
