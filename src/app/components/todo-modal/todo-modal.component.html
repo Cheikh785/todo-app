@@ -4,7 +4,7 @@
   <mat-dialog-content>
     <form [formGroup]="todoForm" class="flex flex-col gap-4">
 
-      <mat-form-field appearance="outline" class="w-full">
+      <mat-form-field class="w-full">
         <mat-label>{{ 'todo.taskTitle' | transloco }}</mat-label>
         <input
           matInput
@@ -16,7 +16,7 @@
         </mat-error>
       </mat-form-field>
 
-      <mat-form-field appearance="outline" class="w-full">
+      <mat-form-field class="w-full">
         <mat-label>{{ 'todo.person' | transloco }}</mat-label>
         <input
           type="text"
@@ -36,7 +36,7 @@
       </mat-form-field>
 
       <div class="grid grid-cols-2 gap-4">
-        <mat-form-field appearance="outline">
+        <mat-form-field>
           <mat-label>{{ 'todo.startDate' | transloco }}</mat-label>
           <input
             matInput
@@ -49,7 +49,7 @@
           </mat-error>
         </mat-form-field>
 
-        <mat-form-field appearance="outline">
+        <mat-form-field>
           <mat-label>{{ 'todo.endDate' | transloco }}</mat-label>
           <input
             matInput
@@ -64,7 +64,7 @@
         {{ 'todo.completed' | transloco }}
       </mat-checkbox>
 
-      <mat-form-field appearance="outline" class="w-full">
+      <mat-form-field class="w-full">
         <mat-label>{{ 'todo.priority' | transloco }}</mat-label>
         <mat-select formControlName="priority">
           <mat-option *ngFor="let priority of priorities" [value]="priority">
@@ -76,7 +76,7 @@
         </mat-error>
       </mat-form-field>
 
-      <mat-form-field appearance="outline" class="w-full">
+      <mat-form-field class="w-full">
         <mat-label>{{ 'todo.labels' | transloco }}</mat-label>
         <mat-select formControlName="labels" multiple>
           <mat-option *ngFor="let label of labels" [value]="label">
@@ -88,7 +88,7 @@
         </mat-error>
       </mat-form-field>
 
-      <mat-form-field appearance="outline" class="w-full">
+      <mat-form-field class="w-full">
         <mat-label>{{ 'todo.description' | transloco }}</mat-label>
         <textarea
           matInput

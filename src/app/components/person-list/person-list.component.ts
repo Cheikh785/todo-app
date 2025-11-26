@@ -150,7 +150,7 @@ export class PersonListComponent implements OnInit {
   onDeletePerson(event: any): void {
     const message = this.translocoService.translate('person.deleteConfirm');
     const dialogRef = this.dialog.open(ConfirmDialogComponent, {
-      width: '420px',
+      width: '460px',
       data: {
         title: this.translocoService.translate('common.confirm'),
         message,
