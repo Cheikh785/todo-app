@@ -14,10 +14,11 @@ import { PersonModalComponent } from './components/person-modal/person-modal.com
 import {MaterialModule} from "./shared/material.module";
 import { LayoutComponent } from './components/layout/layout.component';
 import {TodoListComponent} from "./components/todo-list/todo-list.component";
-import {TodoModalComponent} from "./components/todo-modal/todo-modal.component";
-import {PersonListComponent} from "./components/person-list/person-list.component";
-import {TranslocoRootModule} from "./transloco-root.module";
-import {MatMenuModule} from "@angular/material/menu";
+import {TodoModalComponent}from "./components/todo-modal/todo-modal.component";
+import {PersonListComponent}from "./components/person-list/person-list.component";
+import {TranslocoRootModule}from "./transloco-root.module";
+import {MatMenuModule}from "@angular/material/menu";
+import { ConfirmDialogComponent } from './components/confirm-dialog/confirm-dialog.component';
 
 @NgModule({
   declarations: [
@@ -26,7 +27,8 @@ import {MatMenuModule} from "@angular/material/menu";
     PersonModalComponent,
     TodoListComponent,
     TodoModalComponent,
-    LayoutComponent
+    LayoutComponent,
+    ConfirmDialogComponent
   ],
   imports: [
     BrowserModule,

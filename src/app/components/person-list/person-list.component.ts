@@ -5,6 +5,7 @@ import {PersonModalComponent} from "../person-modal/person-modal.component";
 import {MatDialog} from "@angular/material/dialog";
 import { TranslocoService } from '@ngneat/transloco';
 import { ExportService } from '../../services';
+import { ConfirmDialogComponent } from '../confirm-dialog/confirm-dialog.component';
 
 @Component({
   selector: 'app-person-list',
@@ -147,12 +148,25 @@ export class PersonListComponent implements OnInit {
   }
 
   onDeletePerson(event: any): void {
-    const confirmMessage = this.translocoService.translate('person.deleteConfirm');
-    if (confirm(confirmMessage)) {
-      this.personService.deletePerson(event.data.id).subscribe(() => {
-        this.loadPersons();
-      });
-    }
+    const message = this.translocoService.translate('person.deleteConfirm');
+    const dialogRef = this.dialog.open(ConfirmDialogComponent, {
+      width: '420px',
+      data: {
+        title: this.translocoService.translate('common.confirm'),
+        message,
+        confirmText: this.translocoService.translate('common.yes'),
+        cancelText: this.translocoService.translate('common.no'),
+        color: 'warn'
+      }
+    });
+
+    dialogRef.afterClosed().subscribe((confirmed: boolean) => {
+      if (confirmed) {
+        this.personService.deletePerson(event.data.id).subscribe(() => {
+          this.loadPersons();
+        });
+      }
+    });
   }
 
   applyFilters(): void {
