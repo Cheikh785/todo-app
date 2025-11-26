@@ -4,6 +4,7 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { PersonService } from '../../services';
 import { Person } from '../../models';
 import { Observable, of } from 'rxjs';
+import { TranslocoService } from '@ngneat/transloco';
 
 @Component({
   selector: 'app-person-modal',
@@ -18,11 +19,14 @@ export class PersonModalComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private personService: PersonService,
+    private translocoService: TranslocoService,
     public dialogRef: MatDialogRef<PersonModalComponent>,
     @Inject(MAT_DIALOG_DATA) public data: { person?: Person, allPersons: Person[] }
   ) {
     this.isEditMode = !!data.person;
-    this.modalTitle = this.isEditMode ? 'Modifier une personne' : 'Ajouter une personne';
+    this.modalTitle = this.isEditMode ?
+      this.translocoService.translate('person.editPerson') :
+      this.translocoService.translate('person.addPerson');
 
     this.personForm = this.fb.group({
       name: ['', [Validators.required, Validators.minLength(3), this.trimValidator]],
@@ -76,23 +80,25 @@ export class PersonModalComponent implements OnInit {
     const field = this.personForm.get(fieldName);
 
     if (field?.hasError('required')) {
-      return 'Ce champ est requis';
+      return this.translocoService.translate('validation.required');
     }
 
     if (field?.hasError('minlength')) {
-      return `Minimum ${field.errors?.['minlength'].requiredLength} caractères`;
+      return this.translocoService.translate('validation.minLength', {
+        length: field.errors?.['minlength'].requiredLength
+      });
     }
 
     if (field?.hasError('minLengthAfterTrim')) {
-      return 'Le nom doit contenir au moins 3 caractères (espaces non comptés)';
+      return this.translocoService.translate('validation.minLengthTrim', { length: 3 });
     }
 
     if (field?.hasError('email')) {
-      return 'Email invalide';
+      return this.translocoService.translate('validation.invalidEmail');
     }
 
     if (field?.hasError('uniqueName')) {
-      return 'Ce nom existe déjà';
+      return this.translocoService.translate('validation.uniqueName');
     }
 
     return '';

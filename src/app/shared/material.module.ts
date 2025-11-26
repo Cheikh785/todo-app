@@ -30,7 +30,7 @@ const materialModules = [
   MatSidenavModule,
   MatListModule,
   MatCheckboxModule,
-  LayoutModule
+  LayoutModule,
 ];
 
 @NgModule({

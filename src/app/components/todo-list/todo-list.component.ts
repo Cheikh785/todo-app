@@ -3,6 +3,7 @@ import { TodoService, PersonService } from '../../services';
 import { Todo, Person, Priority, Label } from '../../models';
 import {TodoModalComponent} from "../todo-modal/todo-modal.component";
 import {MatDialog} from "@angular/material/dialog";
+import {TranslocoService} from "@ngneat/transloco";
 
 @Component({
   selector: 'app-todo-list',
@@ -81,12 +82,79 @@ export class TodoListComponent implements OnInit {
   constructor(
     private todoService: TodoService,
     private personService: PersonService,
-    private dialog: MatDialog
+    private dialog: MatDialog,
+    private translocoService: TranslocoService
   ) { }
 
   ngOnInit(): void {
     this.loadPersons();
     this.loadTodos();
+    this.updateTableSettings();
+
+    this.translocoService.langChanges$.subscribe(() => {
+      this.updateTableSettings();
+    });
+  }
+
+  updateTableSettings(): void {
+    this.settings = {
+      mode: 'external',
+      actions: {
+        columnTitle: this.translocoService.translate('common.actions'),
+        add: false,
+        position: 'right'
+      },
+      edit: {
+        editButtonContent: '<i class="material-icons">edit</i>',
+      },
+      delete: {
+        deleteButtonContent: '<i class="material-icons">delete</i>',
+        confirmDelete: true
+      },
+      columns: {
+        title: {
+          title: this.translocoService.translate('todo.taskTitle')
+        },
+        personName: {
+          title: this.translocoService.translate('todo.person'),
+          valuePrepareFunction: (value: any, row: any) => {
+            return this.getPersonName(row.personId);
+          }
+        },
+        priority: {
+          title: this.translocoService.translate('todo.priority'),
+          type: 'html',
+          valuePrepareFunction: (value: Priority) => {
+            return this.getPriorityBadge(value);
+          }
+        },
+        labels: {
+          title: this.translocoService.translate('todo.labels'),
+          type: 'html',
+          valuePrepareFunction: (labels: Label[]) => {
+            return this.getLabelsBadges(labels);
+          }
+        },
+        startDate: {
+          title: this.translocoService.translate('todo.startDate'),
+          valuePrepareFunction: (date: string) => {
+            return new Date(date).toLocaleDateString(this.translocoService.getActiveLang());
+          }
+        },
+        endDate: {
+          title: this.translocoService.translate('todo.endDate'),
+          valuePrepareFunction: (date: string | null) => {
+            return date ?
+              new Date(date).toLocaleDateString(this.translocoService.getActiveLang()) :
+              this.translocoService.translate('todo.inProgress');
+          }
+        }
+      },
+      pager: {
+        display: true,
+        perPage: 10
+      }
+    };
   }
 
   loadPersons(): void {
@@ -137,7 +205,8 @@ export class TodoListComponent implements OnInit {
   }
 
   onDeleteTodo(event: any): void {
-    if (confirm('Êtes-vous sûr de vouloir supprimer cette tâche ?')) {
+    const confirmMessage = this.translocoService.translate('todo.deleteConfirm');
+    if (confirm(confirmMessage)) {
       this.todoService.deleteTodo(event.data.id).subscribe(() => {
         this.loadTodos();
       });
@@ -154,13 +223,15 @@ export class TodoListComponent implements OnInit {
       [Priority.MOYEN]: 'bg-yellow-100 text-yellow-800',
       [Priority.DIFFICILE]: 'bg-red-100 text-red-800'
     };
-    return `<span class="px-2 py-1 rounded-full text-xs font-semibold ${colors[priority]}">${priority}</span>`;
+    const translatedPriority = this.translocoService.translate(`priority.${priority}`);
+    return `<span class="px-2 py-1 rounded-full text-xs font-semibold ${colors[priority]}">${translatedPriority}</span>`;
   }
 
   getLabelsBadges(labels: Label[]): string {
-    return labels.map(label =>
-      `<span class="px-2 py-1 rounded-full text-xs font-semibold bg-blue-100 text-blue-800 mr-1">${label}</span>`
-    ).join('');
+    return labels.map(label => {
+      const translatedLabel = this.translocoService.translate(`label.${label}`);
+      return `<span class="px-2 py-1 rounded-full text-xs font-semibold bg-blue-100 text-blue-800 mr-1">${translatedLabel}</span>`;
+    }).join('');
   }
 
   applyFilters(): void {

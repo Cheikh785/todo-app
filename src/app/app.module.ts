@@ -16,6 +16,8 @@ import { LayoutComponent } from './components/layout/layout.component';
 import {TodoListComponent} from "./components/todo-list/todo-list.component";
 import {TodoModalComponent} from "./components/todo-modal/todo-modal.component";
 import {PersonListComponent} from "./components/person-list/person-list.component";
+import {TranslocoRootModule} from "./transloco-root.module";
+import {MatMenuModule} from "@angular/material/menu";
 
 @NgModule({
   declarations: [
@@ -37,7 +39,9 @@ import {PersonListComponent} from "./components/person-list/person-list.componen
     FormsModule,
     Ng2SmartTableModule,
     ReactiveFormsModule,
-    MaterialModule
+    MaterialModule,
+    TranslocoRootModule,
+    MatMenuModule
   ],
   providers: [],
   bootstrap: [AppComponent]

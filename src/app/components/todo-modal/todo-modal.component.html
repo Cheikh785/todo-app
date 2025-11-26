@@ -3,12 +3,13 @@
 
   <mat-dialog-content>
     <form [formGroup]="todoForm" class="flex flex-col gap-4">
+
       <mat-form-field appearance="outline" class="w-full">
-        <mat-label>Titre</mat-label>
+        <mat-label>{{ 'todo.taskTitle' | transloco }}</mat-label>
         <input
           matInput
           formControlName="title"
-          placeholder="Entrez le titre de la tâche">
+          [placeholder]="'todo.titlePlaceholder' | transloco">
         <mat-icon matSuffix>title</mat-icon>
         <mat-error *ngIf="todoForm.get('title')?.invalid && todoForm.get('title')?.touched">
           {{ getErrorMessage('title') }}
@@ -16,13 +17,13 @@
       </mat-form-field>
 
       <mat-form-field appearance="outline" class="w-full">
-        <mat-label>Personne</mat-label>
+        <mat-label>{{ 'todo.person' | transloco }}</mat-label>
         <input
           type="text"
           matInput
           formControlName="person"
           [matAutocomplete]="auto"
-          placeholder="Rechercher une personne">
+          [placeholder]="'todo.personPlaceholder' | transloco">
         <mat-icon matSuffix>person</mat-icon>
         <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayPerson">
           <mat-option *ngFor="let person of filteredPersons | async" [value]="person">
@@ -36,7 +37,7 @@
 
       <div class="grid grid-cols-2 gap-4">
         <mat-form-field appearance="outline">
-          <mat-label>Date de début</mat-label>
+          <mat-label>{{ 'todo.startDate' | transloco }}</mat-label>
           <input
             matInput
             [matDatepicker]="startPicker"
@@ -49,7 +50,7 @@
         </mat-form-field>
 
         <mat-form-field appearance="outline">
-          <mat-label>Date de fin</mat-label>
+          <mat-label>{{ 'todo.endDate' | transloco }}</mat-label>
           <input
             matInput
             [matDatepicker]="endPicker"
@@ -60,14 +61,14 @@
       </div>
 
       <mat-checkbox formControlName="completed" class="mb-2">
-        Marquer comme terminée
+        {{ 'todo.completed' | transloco }}
       </mat-checkbox>
 
       <mat-form-field appearance="outline" class="w-full">
-        <mat-label>Priorité</mat-label>
+        <mat-label>{{ 'todo.priority' | transloco }}</mat-label>
         <mat-select formControlName="priority">
           <mat-option *ngFor="let priority of priorities" [value]="priority">
-            {{ priority }}
+            {{ 'priority.' + priority | transloco }}
           </mat-option>
         </mat-select>
         <mat-error *ngIf="todoForm.get('priority')?.invalid && todoForm.get('priority')?.touched">
@@ -76,10 +77,10 @@
       </mat-form-field>
 
       <mat-form-field appearance="outline" class="w-full">
-        <mat-label>Labels</mat-label>
+        <mat-label>{{ 'todo.labels' | transloco }}</mat-label>
         <mat-select formControlName="labels" multiple>
           <mat-option *ngFor="let label of labels" [value]="label">
-            {{ label }}
+            {{ 'label.' + label | transloco }}
           </mat-option>
         </mat-select>
         <mat-error *ngIf="todoForm.get('labels')?.invalid && todoForm.get('labels')?.touched">
@@ -88,12 +89,12 @@
       </mat-form-field>
 
       <mat-form-field appearance="outline" class="w-full">
-        <mat-label>Description</mat-label>
+        <mat-label>{{ 'todo.description' | transloco }}</mat-label>
         <textarea
           matInput
           formControlName="description"
           rows="4"
-          placeholder="Décrivez la tâche en détail">
+          [placeholder]="'todo.descriptionPlaceholder' | transloco">
         </textarea>
         <mat-error *ngIf="todoForm.get('description')?.invalid && todoForm.get('description')?.touched">
           {{ getErrorMessage('description') }}
@@ -108,7 +109,7 @@
       mat-button
       (click)="onCancel()"
       type="button">
-      Annuler
+      {{ 'common.cancel' | transloco }}
     </button>
     <button
       mat-raised-button
@@ -116,7 +117,7 @@
       (click)="onSubmit()"
       [disabled]="todoForm.invalid"
       type="button">
-      {{ isEditMode ? 'Modifier' : 'Ajouter' }}
+      {{ isEditMode ? ('common.edit' | transloco) : ('common.add' | transloco) }}
     </button>
   </mat-dialog-actions>
 </div>
