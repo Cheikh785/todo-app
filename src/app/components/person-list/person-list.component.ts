@@ -31,19 +31,23 @@ export class PersonListComponent implements OnInit {
     },
     columns: {
       name: {
-        title: 'Nom'
+        title: this.translocoService.translate('person.name'),
+        filter: false
       },
       email: {
-        title: 'Email'
+        title: this.translocoService.translate('person.email'),
+        filter: false
       },
       phone: {
-        title: 'Téléphone'
+        title: this.translocoService.translate('person.phone'),
+        filter: false
       }
     },
     pager: {
       display: true,
       perPage: 10
-    }
+    },
+    noDataMessage: this.translocoService.translate('common.noData')
   };
 
   nameFilter: string = '';
@@ -82,19 +86,23 @@ export class PersonListComponent implements OnInit {
       },
       columns: {
         name: {
-          title: this.translocoService.translate('person.name')
+          title: this.translocoService.translate('person.name'),
+          filter: false
         },
         email: {
-          title: this.translocoService.translate('person.email')
+          title: this.translocoService.translate('person.email'),
+          filter: false
         },
         phone: {
-          title: this.translocoService.translate('person.phone')
+          title: this.translocoService.translate('person.phone'),
+          filter: false
         }
       },
       pager: {
         display: true,
-        perPage: 10
-      }
+        perPage: 5
+      },
+      noDataMessage: this.translocoService.translate('common.noData')
     };
   }
 

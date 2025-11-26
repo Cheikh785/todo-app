@@ -17,14 +17,14 @@ export class LayoutComponent implements OnInit {
 
   navigationItems = [
     {
-      labelKey: 'navigation.todos',
-      icon: 'task',
-      route: '/todos'
-    },
-    {
       labelKey: 'navigation.persons',
       icon: 'people',
       route: '/persons'
+    },
+    {
+      labelKey: 'navigation.todos',
+      icon: 'task',
+      route: '/todos'
     }
   ];
 
