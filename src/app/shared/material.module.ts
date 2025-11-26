@@ -13,6 +13,7 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatListModule } from '@angular/material/list';
 import { MatCheckboxModule } from '@angular/material/checkbox';
+import { LayoutModule } from '@angular/cdk/layout';
 
 const materialModules = [
   MatButtonModule,
@@ -28,7 +29,8 @@ const materialModules = [
   MatToolbarModule,
   MatSidenavModule,
   MatListModule,
-  MatCheckboxModule
+  MatCheckboxModule,
+  LayoutModule,
 ];
 
 @NgModule({

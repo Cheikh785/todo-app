@@ -1,0 +1,62 @@
+<div class="modal-container">
+  <h2 mat-dialog-title class="text-2xl font-bold mb-4">{{ modalTitle }}</h2>
+
+  <mat-dialog-content>
+    <form [formGroup]="personForm" class="flex flex-col gap-4">
+      <mat-form-field appearance="outline" class="w-full">
+        <mat-label>{{ 'person.name' | transloco }}</mat-label>
+        <input
+          matInput
+          formControlName="name"
+          [placeholder]="'person.namePlaceholder' | transloco">
+        <mat-icon matSuffix>person</mat-icon>
+        <mat-error *ngIf="personForm.get('name')?.invalid && personForm.get('name')?.touched">
+          {{ getErrorMessage('name') }}
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="w-full">
+        <mat-label>{{ 'person.email' | transloco }}</mat-label>
+        <input
+          matInput
+          formControlName="email"
+          type="email"
+          [placeholder]="'person.emailPlaceholder' | transloco">
+        <mat-icon matSuffix>email</mat-icon>
+        <mat-error *ngIf="personForm.get('email')?.invalid && personForm.get('email')?.touched">
+          {{ getErrorMessage('email') }}
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="w-full">
+        <mat-label>{{ 'person.phone' | transloco }}</mat-label>
+        <input
+          matInput
+          formControlName="phone"
+          [placeholder]="'person.phonePlaceholder' | transloco">
+        <mat-icon matSuffix>phone</mat-icon>
+        <mat-error *ngIf="personForm.get('phone')?.invalid && personForm.get('phone')?.touched">
+          {{ getErrorMessage('phone') }}
+        </mat-error>
+      </mat-form-field>
+
+    </form>
+  </mat-dialog-content>
+
+  <mat-dialog-actions align="end" class="gap-2">
+    <button
+      mat-button
+      (click)="onCancel()"
+      type="button">
+      {{ 'common.cancel' | transloco }}
+    </button>
+    <button
+      mat-raised-button
+      color="primary"
+      (click)="onSubmit()"
+      [disabled]="personForm.invalid"
+      type="button">
+      {{ isEditMode ? ('common.edit' | transloco) : ('common.add' | transloco) }}
+    </button>
+  </mat-dialog-actions>
+</div>

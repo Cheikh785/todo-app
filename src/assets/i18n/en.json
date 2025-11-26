@@ -1,0 +1,98 @@
+{
+  "app": {
+    "title": "Todo App - Task Management",
+    "version": "Version",
+    "copyright": "© 2025 Todo App"
+  },
+  "navigation": {
+    "title": "Navigation",
+    "todos": "Tasks",
+    "persons": "Persons",
+    "notifications": "Notifications",
+    "profile": "Profile"
+  },
+  "common": {
+    "add": "Add",
+    "edit": "Edit",
+    "delete": "Delete",
+    "cancel": "Cancel",
+    "save": "Save",
+    "search": "Search",
+    "filter": "Filter",
+    "reset": "Reset",
+    "actions": "Actions",
+    "confirm": "Confirm",
+    "close": "Close",
+    "yes": "Yes",
+    "no": "No",
+    "all": "All",
+    "loading": "Loading...",
+    "noData": "No data available"
+  },
+  "person": {
+    "title": "Persons List",
+    "addPerson": "Add a person",
+    "editPerson": "Edit person",
+    "deletePerson": "Delete this person",
+    "deleteConfirm": "Are you sure you want to delete this person?",
+    "name": "Name",
+    "email": "Email",
+    "phone": "Phone",
+    "namePlaceholder": "Enter full name",
+    "emailPlaceholder": "example@email.com",
+    "phonePlaceholder": "+221 77 123 45 67",
+    "filters": "Filters",
+    "searchByName": "Search by name",
+    "searchByEmail": "Search by email"
+  },
+  "todo": {
+    "title": "Tasks List",
+    "addTodo": "Add a task",
+    "editTodo": "Edit task",
+    "deleteTodo": "Delete this task",
+    "deleteConfirm": "Are you sure you want to delete this task?",
+    "taskTitle": "Title",
+    "person": "Person",
+    "priority": "Priority",
+    "labels": "Labels",
+    "startDate": "Start Date",
+    "endDate": "End Date",
+    "description": "Description",
+    "completed": "Mark as completed",
+    "inProgress": "In progress",
+    "filters": "Filters",
+    "titlePlaceholder": "Enter task title",
+    "personPlaceholder": "Search for a person",
+    "descriptionPlaceholder": "Describe the task in detail"
+  },
+  "priority": {
+    "FACILE": "Easy",
+    "MOYEN": "Medium",
+    "DIFFICILE": "Hard"
+  },
+  "label": {
+    "HTML": "HTML",
+    "CSS": "CSS",
+    "NODE_JS": "Node.js",
+    "JQUERY": "jQuery"
+  },
+  "validation": {
+    "required": "This field is required",
+    "minLength": "Minimum {{length}} characters",
+    "minLengthTrim": "Name must contain at least {{length}} characters (spaces not counted)",
+    "invalidEmail": "Invalid email",
+    "uniqueName": "This name already exists"
+  },
+  "language": {
+    "select": "Language",
+    "french": "Français",
+    "english": "English"
+  },
+  "export": {
+    "excel": "Export Excel",
+    "pdf": "Export PDF",
+    "exportDate": "Export date",
+    "personsList": "Persons List",
+    "todosList": "Tasks List"
+  }
+}

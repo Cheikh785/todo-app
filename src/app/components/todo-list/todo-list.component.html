@@ -1,0 +1,83 @@
+<div class="container mx-auto p-6">
+  <div class="bg-white rounded-lg shadow-lg p-6">
+    <div class="flex justify-between items-center mb-6">
+      <h1 class="text-3xl font-bold text-gray-800">{{ 'todo.title' | transloco }}</h1>
+      <div class="flex gap-2">
+        <button
+          mat-raised-button
+          color="accent"
+          (click)="exportToExcel()"
+          class="flex items-center gap-2">
+          <mat-icon>table_chart</mat-icon>
+          {{ 'export.excel' | transloco }}
+        </button>
+        <button
+          mat-raised-button
+          color="accent"
+          (click)="exportToPDF()"
+          class="flex items-center gap-2">
+          <mat-icon>picture_as_pdf</mat-icon>
+          {{ 'export.pdf' | transloco }}
+        </button>
+
+        <button
+          mat-raised-button
+          color="primary"
+          (click)="onAddTodo()"
+          class="flex items-center gap-2">
+          <mat-icon>add</mat-icon>
+          {{ 'todo.addTodo' | transloco }}
+        </button>
+      </div>
+    </div>
+
+    <div class="bg-gray-50 rounded-lg p-4 mb-6">
+      <h3 class="text-lg font-semibold mb-4 text-gray-700">{{ 'todo.filters' | transloco }}</h3>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+
+        <mat-form-field class="w-full">
+          <mat-label>{{ 'todo.priority' | transloco }}</mat-label>
+          <mat-select
+            [(ngModel)]="selectedPriority"
+            (selectionChange)="onPriorityFilterChange()">
+            <mat-option value="">{{ 'common.all' | transloco }}</mat-option>
+            <mat-option *ngFor="let priority of priorities" [value]="priority">
+              {{ 'priority.' + priority | transloco }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <mat-form-field class="w-full">
+          <mat-label>{{ 'todo.labels' | transloco }}</mat-label>
+          <mat-select
+            [(ngModel)]="selectedLabels"
+            (selectionChange)="onLabelsFilterChange()"
+            multiple>
+            <mat-option *ngFor="let label of labels" [value]="label">
+              {{ 'label.' + label | transloco }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <div class="flex items-center">
+          <button
+            mat-raised-button
+            (click)="clearFilters()"
+            class="w-full">
+            <mat-icon>clear</mat-icon>
+            {{ 'common.reset' | transloco }}
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <div class="overflow-x-auto">
+      <ng2-smart-table
+        [settings]="settings"
+        [source]="filteredTodos"
+        (edit)="onEditTodo($event)"
+        (delete)="onDeleteTodo($event)">
+      </ng2-smart-table>
+    </div>
+  </div>
+</div>
