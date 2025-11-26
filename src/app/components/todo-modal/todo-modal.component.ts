@@ -3,8 +3,9 @@ import { FormBuilder, FormGroup, Validators, AbstractControl, ValidationErrors }
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Observable } from 'rxjs';
 import { map, startWith } from 'rxjs/operators';
-import { TodoService, PersonService } from '../../services';
+import { PersonService } from '../../services';
 import { Todo, Person, Priority, Label } from '../../models';
+import { TranslocoService } from '@ngneat/transloco';
 
 @Component({
   selector: 'app-todo-modal',
@@ -14,7 +15,7 @@ import { Todo, Person, Priority, Label } from '../../models';
 export class TodoModalComponent implements OnInit {
   todoForm: FormGroup;
   isEditMode: boolean = false;
-  modalTitle: string = 'Ajouter une tâche';
+  modalTitle: string = '';
 
   persons: Person[] = [];
   filteredPersons!: Observable<Person[]>;
@@ -27,11 +28,14 @@ export class TodoModalComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private personService: PersonService,
+    private translocoService: TranslocoService,
     public dialogRef: MatDialogRef<TodoModalComponent>,
     @Inject(MAT_DIALOG_DATA) public data: { todo?: Todo, persons: Person[] }
   ) {
     this.isEditMode = !!data.todo;
-    this.modalTitle = this.isEditMode ? 'Modifier une tâche' : 'Ajouter une tâche';
+    this.modalTitle = this.isEditMode ?
+      this.translocoService.translate('todo.editTodo') :
+      this.translocoService.translate('todo.addTodo');
     this.persons = data.persons;
 
     this.todoForm = this.fb.group({
@@ -120,15 +124,17 @@ export class TodoModalComponent implements OnInit {
     const field = this.todoForm.get(fieldName);
 
     if (field?.hasError('required')) {
-      return 'Ce champ est requis';
+      return this.translocoService.translate('validation.required');
     }
 
     if (field?.hasError('minlength')) {
-      return `Minimum ${field.errors?.['minlength'].requiredLength} caractères`;
+      return this.translocoService.translate('validation.minLength', {
+        length: field.errors?.['minlength'].requiredLength
+      });
     }
 
     if (field?.hasError('minLengthAfterTrim')) {
-      return 'Le titre doit contenir au moins 3 caractères (espaces non comptés)';
+      return this.translocoService.translate('validation.minLengthTrim', { length: 3 });
     }
 
     return '';

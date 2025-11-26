@@ -1,6 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { MatSidenav } from '@angular/material/sidenav';
+import {TranslocoService} from "@ngneat/transloco";
 
 @Component({
   selector: 'app-layout',
@@ -16,18 +17,27 @@ export class LayoutComponent implements OnInit {
 
   navigationItems = [
     {
-      label: 'Tâches',
+      labelKey: 'navigation.todos',
       icon: 'task',
       route: '/todos'
     },
     {
-      label: 'Personnes',
+      labelKey: 'navigation.persons',
       icon: 'people',
       route: '/persons'
     }
   ];
 
-  constructor(private breakpointObserver: BreakpointObserver) {}
+  availableLanguages = [
+    { code: 'fr', label: 'Français', flag: '🇫🇷' },
+    { code: 'en', label: 'English', flag: '🇬🇧' }
+  ];
+
+  currentLanguage: string;
+
+  constructor(private breakpointObserver: BreakpointObserver, private translocoService: TranslocoService) {
+    this.currentLanguage = this.translocoService.getActiveLang();
+  }
 
   ngOnInit(): void {
     this.breakpointObserver.observe([Breakpoints.Handset])
@@ -46,5 +56,10 @@ export class LayoutComponent implements OnInit {
     if (this.isMobile) {
       this.sidenavOpened = false;
     }
+  }
+
+  changeLanguage(languageCode: string): void {
+    this.translocoService.setActiveLang(languageCode);
+    this.currentLanguage = languageCode;
   }
 }

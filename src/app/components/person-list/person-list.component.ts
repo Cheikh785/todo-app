@@ -3,6 +3,7 @@ import { PersonService } from '../../services';
 import { Person } from '../../models';
 import {PersonModalComponent} from "../person-modal/person-modal.component";
 import {MatDialog} from "@angular/material/dialog";
+import { TranslocoService } from '@ngneat/transloco';
 
 @Component({
   selector: 'app-person-list',
@@ -47,10 +48,48 @@ export class PersonListComponent implements OnInit {
   nameFilter: string = '';
   emailFilter: string = '';
 
-  constructor(private personService: PersonService, private dialog: MatDialog) { }
+  constructor(private personService: PersonService, private dialog: MatDialog, private translocoService: TranslocoService) { }
 
   ngOnInit(): void {
     this.loadPersons();
+    this.updateTableSettings();
+
+    this.translocoService.langChanges$.subscribe(() => {
+      this.updateTableSettings();
+    });
+  }
+
+  updateTableSettings(): void {
+    this.settings = {
+      mode: 'external',
+      actions: {
+        columnTitle: this.translocoService.translate('common.actions'),
+        add: false,
+        position: 'right'
+      },
+      edit: {
+        editButtonContent: '<i class="material-icons">edit</i>',
+      },
+      delete: {
+        deleteButtonContent: '<i class="material-icons">delete</i>',
+        confirmDelete: true
+      },
+      columns: {
+        name: {
+          title: this.translocoService.translate('person.name')
+        },
+        email: {
+          title: this.translocoService.translate('person.email')
+        },
+        phone: {
+          title: this.translocoService.translate('person.phone')
+        }
+      },
+      pager: {
+        display: true,
+        perPage: 10
+      }
+    };
   }
 
   loadPersons(): void {
@@ -94,7 +133,8 @@ export class PersonListComponent implements OnInit {
   }
 
   onDeletePerson(event: any): void {
-    if (confirm('Êtes-vous sûr de vouloir supprimer cette personne ?')) {
+    const confirmMessage = this.translocoService.translate('person.deleteConfirm');
+    if (confirm(confirmMessage)) {
       this.personService.deletePerson(event.data.id).subscribe(() => {
         this.loadPersons();
       });

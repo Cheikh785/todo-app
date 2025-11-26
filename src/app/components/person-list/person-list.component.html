@@ -1,37 +1,37 @@
 <div class="container mx-auto p-6">
   <div class="bg-white rounded-lg shadow-lg p-6">
     <div class="flex justify-between items-center mb-6">
-      <h1 class="text-3xl font-bold text-gray-800">Liste des Personnes</h1>
+      <h1 class="text-3xl font-bold text-gray-800">{{ 'person.title' | transloco }}</h1>
       <button
         mat-raised-button
         color="primary"
         (click)="onAddPerson()"
         class="flex items-center gap-2">
         <mat-icon>add</mat-icon>
-        Ajouter une personne
+        {{ 'person.addPerson' | transloco }}
       </button>
     </div>
 
     <div class="bg-gray-50 rounded-lg p-4 mb-6">
-      <h3 class="text-lg font-semibold mb-4 text-gray-700">Filtres</h3>
+      <h3 class="text-lg font-semibold mb-4 text-gray-700">{{ 'person.filters' | transloco }}</h3>
       <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
         <mat-form-field class="w-full">
-          <mat-label>Nom</mat-label>
+          <mat-label>{{ 'person.name' | transloco }}</mat-label>
           <input
             matInput
             [(ngModel)]="nameFilter"
             (ngModelChange)="onFilterChange()"
-            placeholder="Rechercher par nom">
+            [placeholder]="'person.searchByName' | transloco">
           <mat-icon matSuffix>search</mat-icon>
         </mat-form-field>
 
         <mat-form-field class="w-full">
-          <mat-label>Email</mat-label>
+          <mat-label>{{ 'person.email' | transloco }}</mat-label>
           <input
             matInput
             [(ngModel)]="emailFilter"
             (ngModelChange)="onFilterChange()"
-            placeholder="Rechercher par email">
+            [placeholder]="'person.searchByEmail' | transloco">
           <mat-icon matSuffix>search</mat-icon>
         </mat-form-field>
 
@@ -41,7 +41,7 @@
             (click)="clearFilters()"
             class="w-full">
             <mat-icon>clear</mat-icon>
-            Réinitialiser
+            {{ 'common.reset' | transloco }}
           </button>
         </div>
       </div>

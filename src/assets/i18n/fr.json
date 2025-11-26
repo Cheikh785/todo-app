@@ -1,0 +1,91 @@
+{
+  "app": {
+    "title": "Todo App - Gestion de Tâches",
+    "version": "Version",
+    "copyright": "© 2025 Todo App"
+  },
+  "navigation": {
+    "title": "Navigation",
+    "todos": "Tâches",
+    "persons": "Personnes",
+    "notifications": "Notifications",
+    "profile": "Profil"
+  },
+  "common": {
+    "add": "Ajouter",
+    "edit": "Modifier",
+    "delete": "Supprimer",
+    "cancel": "Annuler",
+    "save": "Enregistrer",
+    "search": "Rechercher",
+    "filter": "Filtrer",
+    "reset": "Réinitialiser",
+    "actions": "Actions",
+    "confirm": "Confirmer",
+    "close": "Fermer",
+    "yes": "Oui",
+    "no": "Non",
+    "all": "Toutes",
+    "loading": "Chargement...",
+    "noData": "Aucune donnée disponible"
+  },
+  "person": {
+    "title": "Liste des Personnes",
+    "addPerson": "Ajouter une personne",
+    "editPerson": "Modifier une personne",
+    "deletePerson": "Supprimer cette personne",
+    "deleteConfirm": "Êtes-vous sûr de vouloir supprimer cette personne ?",
+    "name": "Nom",
+    "email": "Email",
+    "phone": "Téléphone",
+    "namePlaceholder": "Entrez le nom complet",
+    "emailPlaceholder": "exemple@email.com",
+    "phonePlaceholder": "+221 77 123 45 67",
+    "filters": "Filtres",
+    "searchByName": "Rechercher par nom",
+    "searchByEmail": "Rechercher par email"
+  },
+  "todo": {
+    "title": "Liste des Tâches",
+    "addTodo": "Ajouter une tâche",
+    "editTodo": "Modifier une tâche",
+    "deleteTodo": "Supprimer cette tâche",
+    "deleteConfirm": "Êtes-vous sûr de vouloir supprimer cette tâche ?",
+    "taskTitle": "Titre",
+    "person": "Personne",
+    "priority": "Priorité",
+    "labels": "Labels",
+    "startDate": "Date de début",
+    "endDate": "Date de fin",
+    "description": "Description",
+    "completed": "Marquer comme terminée",
+    "inProgress": "En cours",
+    "filters": "Filtres",
+    "titlePlaceholder": "Entrez le titre de la tâche",
+    "personPlaceholder": "Rechercher une personne",
+    "descriptionPlaceholder": "Décrivez la tâche en détail"
+  },
+  "priority": {
+    "FACILE": "Facile",
+    "MOYEN": "Moyen",
+    "DIFFICILE": "Difficile"
+  },
+  "label": {
+    "HTML": "HTML",
+    "CSS": "CSS",
+    "NODE_JS": "Node.js",
+    "JQUERY": "jQuery"
+  },
+  "validation": {
+    "required": "Ce champ est requis",
+    "minLength": "Minimum {{length}} caractères",
+    "minLengthTrim": "Le nom doit contenir au moins {{length}} caractères (espaces non comptés)",
+    "invalidEmail": "Email invalide",
+    "uniqueName": "Ce nom existe déjà"
+  },
+  "language": {
+    "select": "Langue",
+    "french": "Français",
+    "english": "English"
+  }
+}
