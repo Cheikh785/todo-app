@@ -1,0 +1,123 @@
+<div class="modal-container">
+  <h2 mat-dialog-title class="text-2xl font-bold mb-4">{{ modalTitle }}</h2>
+
+  <mat-dialog-content>
+    <form [formGroup]="todoForm" class="flex flex-col gap-4">
+
+      <mat-form-field class="w-full">
+        <mat-label>{{ 'todo.taskTitle' | transloco }}</mat-label>
+        <input
+          matInput
+          formControlName="title"
+          [placeholder]="'todo.titlePlaceholder' | transloco">
+        <mat-icon matSuffix>title</mat-icon>
+        <mat-error *ngIf="todoForm.get('title')?.invalid && todoForm.get('title')?.touched">
+          {{ getErrorMessage('title') }}
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field class="w-full">
+        <mat-label>{{ 'todo.person' | transloco }}</mat-label>
+        <input
+          type="text"
+          matInput
+          formControlName="person"
+          [matAutocomplete]="auto"
+          [placeholder]="'todo.personPlaceholder' | transloco">
+        <mat-icon matSuffix>person</mat-icon>
+        <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayPerson">
+          <mat-option *ngFor="let person of filteredPersons | async" [value]="person">
+            {{ person.name }}
+          </mat-option>
+        </mat-autocomplete>
+        <mat-error *ngIf="todoForm.get('person')?.invalid && todoForm.get('person')?.touched">
+          {{ getErrorMessage('person') }}
+        </mat-error>
+      </mat-form-field>
+
+      <div class="grid grid-cols-2 gap-4">
+        <mat-form-field>
+          <mat-label>{{ 'todo.startDate' | transloco }}</mat-label>
+          <input
+            matInput
+            [matDatepicker]="startPicker"
+            formControlName="startDate">
+          <mat-datepicker-toggle matSuffix [for]="startPicker"></mat-datepicker-toggle>
+          <mat-datepicker #startPicker></mat-datepicker>
+          <mat-error *ngIf="todoForm.get('startDate')?.invalid && todoForm.get('startDate')?.touched">
+            {{ getErrorMessage('startDate') }}
+          </mat-error>
+        </mat-form-field>
+
+        <mat-form-field>
+          <mat-label>{{ 'todo.endDate' | transloco }}</mat-label>
+          <input
+            matInput
+            [matDatepicker]="endPicker"
+            formControlName="endDate">
+          <mat-datepicker-toggle matSuffix [for]="endPicker"></mat-datepicker-toggle>
+          <mat-datepicker #endPicker></mat-datepicker>
+        </mat-form-field>
+      </div>
+
+      <mat-checkbox formControlName="completed" class="mb-2">
+        {{ 'todo.completed' | transloco }}
+      </mat-checkbox>
+
+      <mat-form-field class="w-full">
+        <mat-label>{{ 'todo.priority' | transloco }}</mat-label>
+        <mat-select formControlName="priority">
+          <mat-option *ngFor="let priority of priorities" [value]="priority">
+            {{ 'priority.' + priority | transloco }}
+          </mat-option>
+        </mat-select>
+        <mat-error *ngIf="todoForm.get('priority')?.invalid && todoForm.get('priority')?.touched">
+          {{ getErrorMessage('priority') }}
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field class="w-full">
+        <mat-label>{{ 'todo.labels' | transloco }}</mat-label>
+        <mat-select formControlName="labels" multiple>
+          <mat-option *ngFor="let label of labels" [value]="label">
+            {{ 'label.' + label | transloco }}
+          </mat-option>
+        </mat-select>
+        <mat-error *ngIf="todoForm.get('labels')?.invalid && todoForm.get('labels')?.touched">
+          {{ getErrorMessage('labels') }}
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field class="w-full">
+        <mat-label>{{ 'todo.description' | transloco }}</mat-label>
+        <textarea
+          matInput
+          formControlName="description"
+          rows="4"
+          [placeholder]="'todo.descriptionPlaceholder' | transloco">
+        </textarea>
+        <mat-error *ngIf="todoForm.get('description')?.invalid && todoForm.get('description')?.touched">
+          {{ getErrorMessage('description') }}
+        </mat-error>
+      </mat-form-field>
+
+    </form>
+  </mat-dialog-content>
+
+  <mat-dialog-actions align="end" class="gap-2">
+    <button
+      mat-button
+      (click)="onCancel()"
+      type="button">
+      {{ 'common.cancel' | transloco }}
+    </button>
+    <button
+      mat-raised-button
+      color="primary"
+      (click)="onSubmit()"
+      [disabled]="todoForm.invalid"
+      type="button">
+      {{ isEditMode ? ('common.edit' | transloco) : ('common.add' | transloco) }}
+    </button>
+  </mat-dialog-actions>
+</div>

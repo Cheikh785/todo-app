@@ -1,0 +1,200 @@
+import { Component, OnInit } from '@angular/core';
+import { PersonService } from '../../services';
+import { Person } from '../../models';
+import {PersonModalComponent} from "../person-modal/person-modal.component";
+import {MatDialog} from "@angular/material/dialog";
+import { TranslocoService } from '@ngneat/transloco';
+import { ExportService } from '../../services';
+import { ConfirmDialogComponent } from '../confirm-dialog/confirm-dialog.component';
+
+@Component({
+  selector: 'app-person-list',
+  templateUrl: './person-list.component.html',
+  styleUrls: ['./person-list.component.css']
+})
+export class PersonListComponent implements OnInit {
+  persons: Person[] = [];
+  filteredPersons: Person[] = [];
+
+  settings = {
+    mode: 'external',
+    actions: {
+      columnTitle: 'Actions',
+      add: false,
+      position: 'right'
+    },
+    edit: {
+      editButtonContent: '<i class="material-icons">edit</i>',
+    },
+    delete: {
+      deleteButtonContent: '<i class="material-icons">delete</i>',
+      confirmDelete: true
+    },
+    columns: {
+      name: {
+        title: this.translocoService.translate('person.name'),
+        filter: false
+      },
+      email: {
+        title: this.translocoService.translate('person.email'),
+        filter: false
+      },
+      phone: {
+        title: this.translocoService.translate('person.phone'),
+        filter: false
+      }
+    },
+    pager: {
+      display: true,
+      perPage: 10
+    },
+    noDataMessage: this.translocoService.translate('common.noData')
+  };
+
+  nameFilter: string = '';
+  emailFilter: string = '';
+
+  constructor(
+    private personService: PersonService,
+    private dialog: MatDialog,
+    private translocoService: TranslocoService,
+    private exportService: ExportService
+  ) { }
+
+  ngOnInit(): void {
+    this.loadPersons();
+    this.updateTableSettings();
+
+    this.translocoService.langChanges$.subscribe(() => {
+      this.updateTableSettings();
+    });
+  }
+
+  updateTableSettings(): void {
+    this.settings = {
+      mode: 'external',
+      actions: {
+        columnTitle: this.translocoService.translate('common.actions'),
+        add: false,
+        position: 'right'
+      },
+      edit: {
+        editButtonContent: '<i class="material-icons">edit</i>',
+      },
+      delete: {
+        deleteButtonContent: '<i class="material-icons">delete</i>',
+        confirmDelete: true
+      },
+      columns: {
+        name: {
+          title: this.translocoService.translate('person.name'),
+          filter: false
+        },
+        email: {
+          title: this.translocoService.translate('person.email'),
+          filter: false
+        },
+        phone: {
+          title: this.translocoService.translate('person.phone'),
+          filter: false
+        }
+      },
+      pager: {
+        display: true,
+        perPage: 5
+      },
+      noDataMessage: this.translocoService.translate('common.noData')
+    };
+  }
+
+  loadPersons(): void {
+    this.personService.getAllPersons().subscribe(persons => {
+      this.persons = persons;
+      this.applyFilters();
+    });
+  }
+
+  onAddPerson(): void {
+    const dialogRef = this.dialog.open(PersonModalComponent, {
+      width: '500px',
+      data: { allPersons: this.persons }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.personService.createPerson(result).subscribe(() => {
+          this.loadPersons();
+        });
+      }
+    });
+  }
+
+  onEditPerson(event: any): void {
+    const dialogRef = this.dialog.open(PersonModalComponent, {
+      width: '500px',
+      data: {
+        person: event.data,
+        allPersons: this.persons
+      }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.personService.updatePerson(event.data.id, result).subscribe(() => {
+          this.loadPersons();
+        });
+      }
+    });
+  }
+
+  onDeletePerson(event: any): void {
+    const message = this.translocoService.translate('person.deleteConfirm');
+    const dialogRef = this.dialog.open(ConfirmDialogComponent, {
+      width: '460px',
+      data: {
+        title: this.translocoService.translate('common.confirm'),
+        message,
+        confirmText: this.translocoService.translate('common.yes'),
+        cancelText: this.translocoService.translate('common.no'),
+        color: 'warn'
+      }
+    });
+
+    dialogRef.afterClosed().subscribe((confirmed: boolean) => {
+      if (confirmed) {
+        this.personService.deletePerson(event.data.id).subscribe(() => {
+          this.loadPersons();
+        });
+      }
+    });
+  }
+
+  applyFilters(): void {
+    this.filteredPersons = this.persons.filter(person => {
+      const matchesName = !this.nameFilter ||
+        person.name.toLowerCase().includes(this.nameFilter.toLowerCase());
+      const matchesEmail = !this.emailFilter ||
+        person.email.toLowerCase().includes(this.emailFilter.toLowerCase());
+
+      return matchesName && matchesEmail;
+    });
+  }
+
+  onFilterChange(): void {
+    this.applyFilters();
+  }
+
+  clearFilters(): void {
+    this.nameFilter = '';
+    this.emailFilter = '';
+    this.applyFilters();
+  }
+
+  exportToExcel(): void {
+    this.exportService.exportPersonsToExcel(this.filteredPersons, 'personnes');
+  }
+
+  exportToPDF(): void {
+    this.exportService.exportPersonsToPDF(this.filteredPersons, 'personnes');
+  }
+}
