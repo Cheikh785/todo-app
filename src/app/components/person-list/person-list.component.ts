@@ -101,7 +101,7 @@ export class PersonListComponent implements OnInit {
       },
       pager: {
         display: true,
-        perPage: 5
+        perPage: 10
       },
       noDataMessage: this.translocoService.translate('common.noData')
     };
